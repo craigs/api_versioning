@@ -12,9 +12,9 @@ Gem::Specification.new do |s|
   s.email         = ["craig@melbourne-systems.com"]
   s.description   = %q{API versioning for rails projects. An extraction from the launch.ly project}
   s.summary       = %q{A model based approach to have versioned APIs.}
-  s.homepage      = "launch.ly"
+  s.homepage      = "http://launch.ly"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.9"
@@ -23,9 +23,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sqlite3"
   s.add_development_dependency 'rake'
   s.add_development_dependency "minitest-rails"
-  s.add_development_dependency 'minitest-rails-capybara'
-  s.add_development_dependency 'capybara'
-#  s.add_development_dependency 'capybara_minitest_spec'
   s.add_development_dependency 'turn'
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'forgery'

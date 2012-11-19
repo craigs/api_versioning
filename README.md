@@ -3,7 +3,7 @@ ApiVersioning
 
 Model based API versioning. Extracted from [launch.ly](http://launch.ly).
 
-[![Build Status](https://travis-ci.org/craigs0/api_versioning.png)](https://travis-ci.org/craigs0/api_versioning)
+[![Build Status](https://travis-ci.org/craigs/api_versioning.png)](https://travis-ci.org/craigs/api_versioning)
 
 
 Installation

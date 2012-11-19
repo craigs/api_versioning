@@ -119,7 +119,7 @@ http://localhost/posts.json?api_version=v1_2
 
 If you request API versions via multiple methods, the following order of precedence will apply:
 
-1. Request Parameter params[:api_version]
+1. Request Parameter params['api_version']
 2. Request Header HTTP_X_API_VERSION
 
 ## Contributing

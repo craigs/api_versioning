@@ -19,7 +19,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install api_versioning
+    $ gem install api_versioning    
 
 
 Setting up an API model (presenter)
@@ -124,7 +124,12 @@ If you request API versions via multiple methods, the following order of precede
 1. Request Parameter params['api_version']
 2. Request Header HTTP_X_API_VERSION
 
-## Contributing
+# Building locally
+
+bundle exec rake -f test/dummy/Rakefile db:migrate db:test:prepare
+rake
+
+# Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)

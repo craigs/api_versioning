@@ -1,10 +1,16 @@
 class Api::BaseApi
   
   attr_accessor :api_version
-
+  attr_accessor :request
+  
   API_VERSION_REGEX = /v[0-9]+(_[0-9]+)*/i
   
-  def initialize(version=nil)
+  def xx
+    "xx"
+  end
+  
+  def initialize(version=nil, request=nil)
+    self.request = request
     set_api_version(version)
   end
   

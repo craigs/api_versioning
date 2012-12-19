@@ -36,7 +36,7 @@ module ApiVersioning
 				presenters.each do |key, value|
 
 					begin
-						presenter = Api.const_get("#{key.to_s.camelize}Api").new(api_version)
+						presenter = Api.const_get("#{key.to_s.camelize}Api").new(api_version, request)
 					rescue NameError => e
 						render_api_error "Unknown Presenter"
 					end

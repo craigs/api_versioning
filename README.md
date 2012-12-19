@@ -94,6 +94,31 @@ class PostsController < ApplicationController
 end
 ```
 
+Additionally, you can also pass in multiple parameters to the presenter.
+
+```
+render_json posts: { posts: @posts, signed_in: user_signed_in? }
+```
+
+Then, in the presenter, you can access your parameters like ...
+
+```
+class Api::PostsApi < Api::BaseApi
+
+	def v1(options)
+	
+		posts = options[:posts]
+		signed_in = options[:signed_in]
+
+		Jbuilder.encode do |json|
+			json.awesome_response 'Hello World'
+		end
+
+	end
+
+end
+```
+
 Requesting an API Version
 =========================
 

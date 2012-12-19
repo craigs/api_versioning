@@ -32,20 +32,21 @@ module ApiVersioning
 			def render_json(presenters)
 
 				results = []
+				
+				begin
 
-				presenters.each do |key, value|
-
-					begin
-						presenter = Api.const_get("#{key.to_s.camelize}Api").new(api_version)
-						results << presenter.render(value)
-						render :json => results.join(','), :callback => params[:callback]
-					rescue NameError => e
-						render_api_error "Unknown Presenter: #{key.to_s.camelize}Api"
-					rescue Exception => e
-						render_api_error "Bad API Request"
-					end
-
-				end
+  				presenters.each do |key, value|
+  						presenter = Api.const_get("#{key.to_s.camelize}Api").new(api_version)
+  						results << presenter.render(value)
+  				end
+				
+				  render :json => results.join(','), :callback => params[:callback]				
+        
+        rescue NameError => e
+          render_api_error "Unknown Presenter"
+        rescue Exception => e
+          render_api_error "Bad API Request"
+        end
 
 			end
 		  

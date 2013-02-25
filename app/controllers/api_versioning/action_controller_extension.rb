@@ -35,26 +35,34 @@ module ApiVersioning
 				
 				begin
 
-  				presenters.each do |key, value|
+	  				presenters.each do |key, value|
   						presenter = Api.const_get("#{key.to_s.camelize}Api").new(api_version)
   						results << presenter.render(value)
-  				end
+  					end
 				
-				  render :json => results.join(','), :callback => params[:callback]				
+					render :json => results.join(','), :callback => params[:callback]				
         
-        rescue NameError => e
-          render_api_error "Unknown Presenter"
-        rescue Exception => e
-          render_api_error "Bad API Request"
-        end
+		        rescue NameError => e
+					render_api_error "Unknown Presenter", e
+        		rescue Exception => e
+					render_api_error "Bad API Request", e
+        		end
 
 			end
-		  
-			def render_api_error(message, status=400)
+
+			def render_api_error(message, status=400, exception=nil)
+				notify_api_error(exception) unless exception.nil?
 				status_code = Rack::Utils.status_code(status)
 				status_description = Rack::Utils::HTTP_STATUS_CODES[status_code]
 				render :status => status, :json => { status_code: status_code, status_description: status_description, message: message }.to_json
-			end  
+			end
+
+			private
+			def notify_api_error(exception)
+				unless ExceptionNotifier::Notifier.nil?
+					ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
+				end
+			end
 
 		end
 	end

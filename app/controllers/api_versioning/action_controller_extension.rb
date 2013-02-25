@@ -43,9 +43,9 @@ module ApiVersioning
 					render :json => results.join(','), :callback => params[:callback]				
         
 		        rescue NameError => e
-					render_api_error "Unknown Presenter", e
+					render_api_error "Unknown Presenter", 400, e
         		rescue Exception => e
-					render_api_error "Bad API Request", e
+					render_api_error "Bad API Request", 400, e
         		end
 
 			end

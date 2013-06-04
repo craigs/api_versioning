@@ -29,7 +29,7 @@ module ApiVersioning
 				matches.nil? ? nil : matches[0].to_sym
 			end
 
-			def render_json(presenters)
+			def render_json(presenters, status=200)
 
 				results = []
 				
@@ -40,7 +40,7 @@ module ApiVersioning
   						results << presenter.render(value)
   					end
 				
-					render :json => results.join(','), :callback => params[:callback]				
+					render :status => status, :json => results.join(','), :callback => params[:callback]				
         
 		        rescue NameError => e
 					render_api_error "Unknown Presenter", 400, e

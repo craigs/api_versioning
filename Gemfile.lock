@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    api_versioning (0.0.6)
+    api_versioning (0.0.7)
       jbuilder
       rails (~> 3.2.9)
 

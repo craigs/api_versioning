@@ -55,17 +55,17 @@ module ApiVersioning
 			def render_results(results)
 
 				begin
-					
+
 					render status: status, json: results, callback: params[:callback]				
         
 		        rescue NameError => e
-		        	if Rails.production?
+		        	if Rails.production? || Rails.test? 
 						render_api_error "Unknown Presenter", 400, e
 					else
 						raise e
 					end
         		rescue Exception => e
-		        	if Rails.production?
+		        	if Rails.production? || Rails.test? 
 						render_api_error "Bad API Request", 400, e
 					else
 						raise e

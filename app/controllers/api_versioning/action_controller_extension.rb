@@ -29,25 +29,54 @@ module ApiVersioning
 				matches.nil? ? nil : matches[0].to_sym
 			end
 
-			def render_json(presenters, status=200)
+			def render_presenters(presenters)
 
 				results = []
 				
-				begin
+	  			presenters.each do |key, value|
+  					presenter = Api.const_get("#{key.to_s.camelize}Api").new(api_version)
+  					results << presenter.render(value)
+  				end
 
-	  				presenters.each do |key, value|
-  						presenter = Api.const_get("#{key.to_s.camelize}Api").new(api_version)
-  						results << presenter.render(value)
-  					end
-				
-					render :status => status, :json => results.join(','), :callback => params[:callback]				
+  				results.join(',')
+
+			end
+
+			def render_cached_json(caching_keys, expires_in, presenters, status=200)
+
+				results = Rails.cache.fetch(caching_keys) do 
+					render_presenters(presenters)
+				end
+
+				render_results results
+
+			end
+
+			def render_results(results)
+
+				begin
+					
+					render status: status, json: results, callback: params[:callback]				
         
 		        rescue NameError => e
-					render_api_error "Unknown Presenter", 400, e
+		        	if Rails.production?
+						render_api_error "Unknown Presenter", 400, e
+					else
+						raise e
+					end
         		rescue Exception => e
-					render_api_error "Bad API Request", 400, e
+		        	if Rails.production?
+						render_api_error "Bad API Request", 400, e
+					else
+						raise e
+					end
         		end
 
+			end
+
+			def render_json(presenters, status=200)
+				results = render_presenters(presenters)			
+				render_results results
 			end
 
 			def render_api_error(message, status=400, exception=nil)

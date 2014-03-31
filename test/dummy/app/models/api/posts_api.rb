@@ -8,7 +8,7 @@ class Api::PostsApi < Api::BaseApi
 
       json.api_version 'v1'
     	
-      json.posts posts do |json, post|
+      json.posts posts do |post|
         timestamps json, post      
         json.name post.name
         json.content post.content
@@ -24,7 +24,7 @@ class Api::PostsApi < Api::BaseApi
       
       json.api_version 'v1_1'
 
-      json.posts posts do |json, post|
+      json.posts posts do |post|
         timestamps json, post      
         json.name post.name
         json.teaser post.teaser

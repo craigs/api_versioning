@@ -44,7 +44,7 @@ module ApiVersioning
 
 			def render_cached_json(caching_keys, expires_in, presenters, status=200)
 
-				results = Rails.cache.fetch(caching_keys) do 
+				results = Rails.cache.fetch(caching_keys, expires_in: expires_in) do 
 					render_presenters(presenters)
 				end
 
